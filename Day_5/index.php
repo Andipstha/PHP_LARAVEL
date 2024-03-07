@@ -1,5 +1,13 @@
 <?php
 
+// CREATE TABLE IF NOT EXISTS foods (
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     name VARCHAR(255),
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+// );
+
+// select * from foods;
 // echo 'hello';
 
 # create the database called -> foods
@@ -18,38 +26,46 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 # check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-} 
+}
 else{
     // echo "Connected successfully";
 }
 
 #fetch the data
+// $sql = "SELECT * FROM foods";
+
+// $result = $conn->query($sql);
+// # print out the result of query
+// if ($result->num_rows > 0) {
+//     // output data of each row
+//     while($row = $result->fetch_assoc()) {
+//         echo "id: " . $row["id"]. " - Name: " . $row["name"]. " " . $row["created_at"]. "<br>";
+//         #1, Jhole momo, 2021-07-07 00:00:00
+//     }
+// } else {
+//     echo "0 results";
+// }
+
 $sql = "SELECT * FROM foods";
 
-$result = $conn->query($sql);
-# print out the result of query
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        echo "id: " . $row["id"]. " - Name: " . $row["name"]. " " . $row["created_at"]. "<br>";
-        #1, Jhole momo, 2021-07-07 00:00:00
-    }
-} else {
-    echo "0 results";
-}
-
-
-
-CREATE TABLE IF NOT EXISTS foods (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
-select * from foods;
-
+$result = mysqli_query($conn, $sql);
+$rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 ?>
+<ul>
+    <?php
+        foreach ($rows as $values){
+            echo "<li> {$values['name']}</li>";
+        }
+
+    ?>
+</ul>
+
+
+
+
+
+
+<!-- ?> -->
 
 
